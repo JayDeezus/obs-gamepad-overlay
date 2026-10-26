@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            function connect()
+            {
+                const ws = new WebSocket('ws://localhost:8765');
+
+                ws.onmessage = (e) => {
+                    const state = JSON.parse(e.data);
+                    for (const id in state) {
+                        document.getElementById(id).style.visibility = state[id] ? 'visible' : 'hidden';
+                    }
+                };
+            }
+            connect();
+        </script>
+        <style>
+            IMG 
+            {
+                position: absolute ;
+            }
+            .activation
+            {
+                visibility: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <img src="assets/controller-base.png" />
+
+        <img id="button0" class="activation" src="assets/apressed.png" />
+        <img id="button1" class="activation" src="assets/bpressed.png" />
+        <img id="button2" class="activation" src="assets/xpressed.png" />
+        <img id="button3" class="activation" src="assets/ypressed.png" />
+
+        <img id="button4" class="activation" src="assets/lbpressed.png" />
+        <img id="button5" class="activation" src="assets/rbpressed.png" />
+        <img id="button6" class="activation" src="assets/ltpressed.png" />
+        <img id="button7" class="activation" src="assets/rtpressed.png" />
+
+        <img id="buttonC" class="activation" src="assets/updpressed.png" />
+        <img id="buttonD" class="activation" src="assets/downdpressed.png" />
+        <img id="buttonE" class="activation" src="assets/leftdpressed.png" />
+        <img id="buttonF" class="activation" src="assets/rightdpressed.png" />
+
+    </body>
+</html>
