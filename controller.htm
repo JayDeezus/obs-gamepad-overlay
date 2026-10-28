@@ -5,11 +5,25 @@
             {
                 const ws = new WebSocket('ws://localhost:8765');
 
+                ws.onopen = () => {
+                    document.getElementById('disconnected').style.visibility = 'hidden';
+                };
+
                 ws.onmessage = (e) => {
                     const state = JSON.parse(e.data);
                     for (const id in state) {
                         document.getElementById(id).style.visibility = state[id] ? 'visible' : 'hidden';
                     }
+                };
+
+                // try connecting again in 5 seconds if ws is not open
+                ws.onclose = () => {
+                    document.getElementById('disconnected').style.visibility = 'visible';
+                    setTimeout(connect, 5000);
+                };
+                ws.onerror = () => {
+                    document.getElementById('disconnected').style.visibility = 'visible';
+                    setTimeout(connect, 5000);
                 };
             }
             connect();
@@ -26,6 +40,7 @@
         </style>
     </head>
     <body>
+        <img id="disconnected" src="assets/disconnected.png" />
         <img src="assets/controller-base.png" />
 
         <img id="button0" class="activation" src="assets/apressed.png" />
